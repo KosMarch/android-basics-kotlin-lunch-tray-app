@@ -18,9 +18,6 @@ package com.example.lunchtray.data
 import com.example.lunchtray.constants.ItemType
 import com.example.lunchtray.model.MenuItem
 
-/**
- * Map of available menu items to be displayed in the menu fragments.
- */
 object DataSource {
     val menuItems = mapOf(
         "cauliflower" to

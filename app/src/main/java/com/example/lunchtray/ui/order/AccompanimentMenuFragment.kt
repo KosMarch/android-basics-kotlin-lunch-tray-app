@@ -21,6 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.findFragment
+import androidx.navigation.findNavController
+import com.example.lunchtray.R
 import com.example.lunchtray.databinding.FragmentAccompanimentMenuBinding
 import com.example.lunchtray.model.OrderViewModel
 
@@ -58,29 +61,20 @@ class AccompanimentMenuFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
-            // TODO: initialize the AccompanimentMenuFragment variables
+
+            accompanimentMenuFragment = view.findFragment()
         }
     }
 
-    /**
-     * Navigate to the checkout fragment.
-     */
     fun goToNextScreen() {
-        // TODO: Navigate to the CheckoutFragment
+        view?.findNavController()?.navigate(R.id.action_accompanimentMenuFragment_to_checkoutFragment)
     }
 
-    /**
-     * Cancel the order and start over.
-     */
     fun cancelOrder() {
-        // TODO: Reset order in view model
-        // TODO: Navigate back to the [StartFragment] to start over
+        sharedViewModel.resetOrder()
+        view?.findNavController()?.navigate(R.id.action_accompanimentMenuFragment_to_startOrderFragment)
     }
 
-    /**
-     * This fragment lifecycle method is called when the view hierarchy associated with the fragment
-     * is being removed. As a result, clear out the binding object.
-     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

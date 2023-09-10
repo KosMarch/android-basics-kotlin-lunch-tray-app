@@ -21,12 +21,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.findFragment
+import androidx.navigation.findNavController
+import com.example.lunchtray.R
 import com.example.lunchtray.databinding.FragmentSideMenuBinding
 import com.example.lunchtray.model.OrderViewModel
 
-/**
- * [SideMenuFragment] allows people to add a side to the order or cancel the order.
- */
 class SideMenuFragment : Fragment() {
 
     // Binding object instance corresponding to the fragment_start_order.xml layout
@@ -57,29 +57,20 @@ class SideMenuFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = sharedViewModel
-            // TODO: initialize the SideMenuFragment variables
+
+            sideMenuFragment = view.findFragment()
         }
     }
 
-    /**
-     * Navigate to the accompaniments menu fragment
-     */
     fun goToNextScreen() {
-        // TODO: Navigate to the AccompanimentMenuFragment
+        view?.findNavController()?.navigate(R.id.action_sideMenuFragment_to_accompanimentMenuFragment)
     }
 
-    /**
-     * Cancel the order and start over.
-     */
     fun cancelOrder() {
-        // TODO: Reset order in view model
-        // TODO: Navigate back to the [StartFragment] to start over
+        sharedViewModel.resetOrder()
+        view?.findNavController()?.navigate(R.id.action_sideMenuFragment_to_startOrderFragment)
     }
 
-    /**
-     * This fragment lifecycle method is called when the view hierarchy associated with the fragment
-     * is being removed. As a result, clear out the binding object.
-     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
